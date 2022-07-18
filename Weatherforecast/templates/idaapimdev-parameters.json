@@ -3,19 +3,19 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "ApimServiceName": {
-      "value": " "
+      "value": "https://idaapimdev.developer.worldbank.org"
     },
     "LinkedTemplatesBaseUrl": {
-      "value": " "
+      "value": "https://github.com/rajprabhu2k/weatherforecast/tree/main/Weatherforecast/templates"
     },
     "LinkedTemplatesUrlQueryString": {
-      "value": " "
+      "value": ""
     },
     "PolicyXMLBaseUrl": {
-      "value": " "
+      "value": "https://github.com/rajprabhu2k/weatherforecast/tree/main/Weatherforecast/templates/policies"
     },
     "PolicyXMLSasToken": {
-      "value": " "
+      "value": ""
     }
   },
   "resources": []
