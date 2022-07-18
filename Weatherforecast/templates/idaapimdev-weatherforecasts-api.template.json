@@ -1,0 +1,143 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "type": "string"
+    },
+    "PolicyXMLSasToken": {
+      "type": "string"
+    },
+    "PolicyXMLBaseUrl": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "properties": {
+        "description": "A simple example ASP.NET Core Web API",
+        "authenticationSettings": {
+          "subscriptionKeyRequired": false
+        },
+        "subscriptionKeyParameterNames": {
+          "header": "Ocp-Apim-Subscription-Key",
+          "query": "subscription-key"
+        },
+        "apiRevision": "1",
+        "isCurrent": true,
+        "subscriptionRequired": true,
+        "displayName": "WeatherForecasts",
+        "serviceUrl": "https://idaportaldev.itsbgdevpdmz.worldbank.org",
+        "path": "v1",
+        "protocols": [
+          "https"
+        ]
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/weatherforecasts')]",
+      "type": "Microsoft.ApiManagement/service/apis",
+      "apiVersion": "2021-01-01-preview",
+      "dependsOn": []
+    },
+    {
+      "properties": {
+        "contentType": "application/vnd.ms-azure-apim.swagger.definitions+json",
+        "document": {
+          "value": "{\"WeatherForecast\":{\"type\":\"object\",\"properties\":{\"date\":{\"format\":\"date-time\",\"type\":\"string\"},\"temperatureC\":{\"format\":\"int32\",\"type\":\"integer\"},\"temperatureF\":{\"format\":\"int32\",\"type\":\"integer\",\"readOnly\":true},\"summary\":{\"type\":\"string\"}}},\"WeatherForecastArray\":{\"type\":\"array\",\"items\":{\"$ref\":\"#/definitions/WeatherForecast\"}}}"
+        }
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/weatherforecasts/62bd4e386a5d3518041b2ea2')]",
+      "type": "Microsoft.ApiManagement/service/apis/schemas",
+      "apiVersion": "2021-01-01-preview",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'weatherforecasts')]"
+      ]
+    },
+    {
+      "properties": {
+        "templateParameters": [],
+        "request": {
+          "queryParameters": [],
+          "headers": [],
+          "representations": []
+        },
+        "responses": [
+          {
+            "statusCode": 200,
+            "description": "Success",
+            "headers": [],
+            "representations": [
+              {
+                "contentType": "text/plain",
+                "schemaId": "62bd4e386a5d3518041b2ea2",
+                "typeName": "WeatherForecastArray"
+              },
+              {
+                "contentType": "application/json",
+                "sample": "[[\r\n  {\r\n    \"date\": \"string\",\r\n    \"temperatureC\": 0,\r\n    \"temperatureF\": 0,\r\n    \"summary\": \"string\"\r\n  }\r\n]",
+                "schemaId": "62bd4e386a5d3518041b2ea2",
+                "typeName": "WeatherForecastArray"
+              },
+              {
+                "contentType": "text/json",
+                "sample": "[[\r\n  {\r\n    \"date\": \"string\",\r\n    \"temperatureC\": 0,\r\n    \"temperatureF\": 0,\r\n    \"summary\": \"string\"\r\n  }\r\n]",
+                "schemaId": "62bd4e386a5d3518041b2ea2",
+                "typeName": "WeatherForecastArray"
+              }
+            ]
+          }
+        ],
+        "displayName": "/WeatherForecast - GET",
+        "method": "GET",
+        "urlTemplate": "/WeatherForecast"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/weatherforecasts/get-weatherforecast')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations",
+      "apiVersion": "2021-01-01-preview",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis', parameters('ApimServiceName'), 'weatherforecasts')]",
+        "[resourceId('Microsoft.ApiManagement/service/apis/schemas', parameters('ApimServiceName'), 'weatherforecasts', '62bd4e386a5d3518041b2ea2')]"
+      ]
+    },
+    {
+      "properties": {
+        "displayName": "WeatherForecast"
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/weatherforecasts/get-weatherforecast/WeatherForecast')]",
+      "type": "Microsoft.ApiManagement/service/apis/operations/tags",
+      "apiVersion": "2021-01-01-preview",
+      "dependsOn": [
+        "[resourceId('Microsoft.ApiManagement/service/apis/operations', parameters('ApimServiceName'), 'weatherforecasts', 'get-weatherforecast')]"
+      ]
+    },
+    {
+      "properties": {
+        "alwaysLog": "allErrors",
+        "loggerId": "/subscriptions/2184cdb2-248d-4aa0-bae0-f06fa2df8b9d/resourceGroups/itsfe-ida-apps-RG/providers/Microsoft.ApiManagement/service/idaapimdev/loggers/itsfe-idasystems-dev-ai",
+        "httpCorrelationProtocol": "Legacy",
+        "logClientIp": true,
+        "sampling": {
+          "samplingType": "fixed",
+          "percentage": 100.0
+        }
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/applicationinsights')]",
+      "type": "Microsoft.ApiManagement/service/diagnostics",
+      "apiVersion": "2021-01-01-preview",
+      "dependsOn": []
+    },
+    {
+      "properties": {
+        "loggerId": "/subscriptions/2184cdb2-248d-4aa0-bae0-f06fa2df8b9d/resourceGroups/itsfe-ida-apps-RG/providers/Microsoft.ApiManagement/service/idaapimdev/loggers/azuremonitor",
+        "logClientIp": true,
+        "sampling": {
+          "samplingType": "fixed",
+          "percentage": 100.0
+        }
+      },
+      "name": "[concat(parameters('ApimServiceName'), '/azuremonitor')]",
+      "type": "Microsoft.ApiManagement/service/diagnostics",
+      "apiVersion": "2021-01-01-preview",
+      "dependsOn": []
+    }
+  ]
+}
