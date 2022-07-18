@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "ApimServiceName": {
+      "value": "https://idaapimdev.developer.worldbank.org"
+    },
+    "LinkedTemplatesBaseUrl": {
+      "value": "https://github.com/rajprabhu2k/weatherforecast/tree/main/Weatherforecast/templates"
+    },
+    "LinkedTemplatesUrlQueryString": {
+      "value": ""
+    },
+    "PolicyXMLBaseUrl": {
+      "value": "https://github.com/rajprabhu2k/weatherforecast/tree/main/Weatherforecast/templates/policies"
+    },
+    "PolicyXMLSasToken": {
+      "value": ""
+    }
+  },
+  "resources": []
+}
